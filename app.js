@@ -33,13 +33,23 @@ app.get("/:slug", (req, res) => {
 });
 
 app.post("/url", (req, res) => {
-  const { url, slug } = req.body;
-  const link = new Link({
-    url: url,
-    slug: slug,
+  Link.exists({ slug: req.body.slug }, (err, isUsed) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (isUsed) {
+        res.write("Slug in use");
+      } else {
+        const { url, slug } = req.body;
+        const link = new Link({
+          url: url,
+          slug: slug,
+        });
+        link.save();
+        res.redirect("/");
+      }
+    }
   });
-  link.save();
-  res.redirect("/");
 });
 
 const port = process.env.PORT || 3000;

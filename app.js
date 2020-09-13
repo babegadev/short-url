@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(express.static("public"));
+app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_URL}/${process.env.DB_NAME}`;
@@ -19,7 +19,7 @@ const linkSchema = new mongoose.Schema({
 const Link = mongoose.model("urls", linkSchema);
 
 app.get("/", (req, res) => {
-  res.sendFile("index");
+  res.render("index", { message: req.query.m, type: req.query.type });
 });
 
 app.get("/:slug", (req, res) => {
@@ -27,7 +27,7 @@ app.get("/:slug", (req, res) => {
     if (link) {
       res.redirect(link.url);
     } else {
-      res.redirect("/");
+      res.render("not-found", { slug: req.params.slug });
     }
   });
 });
@@ -38,7 +38,7 @@ app.post("/url", (req, res) => {
       console.log(err);
     } else {
       if (isUsed) {
-        res.write("Slug in use");
+        res.redirect("/?m=Slug%20In%20Use&type=danger");
       } else {
         const { url, slug } = req.body;
         const link = new Link({
@@ -46,7 +46,7 @@ app.post("/url", (req, res) => {
           slug: slug,
         });
         link.save();
-        res.redirect("/");
+        res.redirect("/?m=Success&type=primary");
       }
     }
   });

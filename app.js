@@ -19,7 +19,11 @@ const linkSchema = new mongoose.Schema({
 const Link = mongoose.model("urls", linkSchema);
 
 app.get("/", (req, res) => {
-  res.render("index", { message: req.query.m, type: req.query.type });
+  res.render("index", {
+    message: req.query.m,
+    type: req.query.type,
+    link: req.query.link,
+  });
 });
 
 app.get("/:slug", (req, res) => {
@@ -42,11 +46,13 @@ app.post("/url", (req, res) => {
       } else {
         const { url, slug } = req.body;
         const link = new Link({
-          url: url,
+          url: `http://${url}`,
           slug: slug,
         });
         link.save();
-        res.redirect("/?m=Success&type=primary");
+        res.redirect(
+          `/?m=Link%20Created%20&type=primary&link=http%3A%2F%2Fr.babega.com%2F${slug}`
+        );
       }
     }
   });

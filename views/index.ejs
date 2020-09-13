@@ -9,14 +9,18 @@
     .container {
       max-width: 750px;
     }
+    a {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <div class="container">
+    <% if (link) { %><input id="linkIn" type="hidden" name="link" value="<%= link %>"></input><% } %>
     <h1 class="mt-5 mb-5 text-center">URL Shortener</h1>
     <% if (message) { %>
       <div class="alert alert-<%= type %> alert-dismissible fade show" role="alert">
-        <%= message %>
+        <%= message %> <% if (link) { %><a href="/" onclick="copyToClipboard(document.querySelector('#linkIn').value)">copy</a> <% } %>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -25,11 +29,21 @@
     <form action="/url" method="post">
       <div class="form-group">
         <label for="url">URL</label>
-        <input class="form-control" placeholder="https://example.com" type="url" name="url" id="url">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">http://</span>
+          </div>
+          <input class="form-control" placeholder="babega.com" type="text" name="url" id="url">
+        </div>
       </div>
       <div class="form-group">
         <label for="slug">Slug</label>
-        <input class="form-control" placeholder="example" type="text" name="slug" id="slug">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">r.babega.com/</span>
+          </div>
+          <input class="form-control" placeholder="example" type="text" name="slug" id="slug">
+        </div>
       </div>
       <button class="btn btn-primary" type="submit">Create Short URL</button>
     </form>
@@ -37,7 +51,17 @@
   <script>
     setTimeout(() => {
       $(".alert").alert('close')
-    }, 5000)
+    }, 10000)
+  </script>
+  <script>
+    function copyToClipboard(str) {
+      const el = document.createElement('textarea');
+      el.value = str;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    };
   </script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

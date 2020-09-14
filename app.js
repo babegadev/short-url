@@ -27,6 +27,15 @@ app.get(
   }
 );
 
+app.get(
+  "/.well-known/acme-challenge/w_5iafbFj3NSYJthR4-jfOknBFA9QIv4w_K2JM_5dkc",
+  (req, res) => {
+    res.send(
+      "w_5iafbFj3NSYJthR4-jfOknBFA9QIv4w_K2JM_5dkc.hBn_upTIvrjfsdsPFdZsBwOPUPyYUFHOn4L0UnHbzoM"
+    );
+  }
+);
+
 app.get("/", (req, res) => {
   res.render("index", {
     message: req.query.m,

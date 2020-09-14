@@ -18,6 +18,15 @@ const linkSchema = new mongoose.Schema({
 
 const Link = mongoose.model("urls", linkSchema);
 
+app.get(
+  "/.well-known/acme-challenge/6OU0gwwXRV92dX-LW82qXtTU_fsHgmkSOsIjixN0GT8",
+  (req, res) => {
+    res.send(
+      "6OU0gwwXRV92dX-LW82qXtTU_fsHgmkSOsIjixN0GT8.hBn_upTIvrjfsdsPFdZsBwOPUPyYUFHOn4L0UnHbzoM"
+    );
+  }
+);
+
 app.get("/", (req, res) => {
   res.render("index", {
     message: req.query.m,

@@ -26,7 +26,7 @@
         </button>
       </div>
     <% } %>
-    <form action="/url" method="post">
+    <form action="/url" method="post" id="form">
       <div class="form-group">
         <label for="url">URL</label>
         <div class="input-group">
@@ -45,7 +45,11 @@
           <input class="form-control" placeholder="example" type="text" name="slug" id="slug">
         </div>
       </div>
-      <button class="btn btn-primary" type="submit">Create Short URL</button>
+      <button class="g-recaptcha btn btn-primary" 
+        data-sitekey="6LdOutAZAAAAAF9XhLLSv2zfz6mWqzJTviZlJUdU" 
+        data-callback='submit' 
+        data-action='submit'>Create</button>
+      <!-- <button class="btn btn-primary" type="submit">Create Short URL</button> -->
     </form>
   </div>
   <script>
@@ -66,5 +70,11 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <script>
+    function submin(token) {
+      document.getElementById("form").submit();
+    }
+  </script>
 </body>
 </html>

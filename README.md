@@ -1,7 +1,9 @@
 # NodeJS URL Shortener
 NodeJS and MongoDB URL Shortener
 
-Available on [r.babega.com](http://kurl.herokuapp.com)
+ANNOUNCEMENT: New URL Shortener is available: [nuw.me](https://nuw.me)
+
+Available on [kurl.herokuapp.com.com](https://kurl.herokuapp.com)
 
 ## Features
 - Create URL
